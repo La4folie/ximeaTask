@@ -244,7 +244,7 @@ function CameraModelGrid({ cameraDataFile }) {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row flex-1 justify-center items-start p-2 md:p-6 space-y-4 md:space-y-0 md:space-x-8">
+    <div className="flex flex-col md:flex-row justify-center items-start p-2 md:p-6 space-y-4 md:space-y-0 md:space-x-8">
       <div className="w-full md:w-1/4 bg-white rounded-lg shadow-md p-4 space-y-6">
         <h2 className="text-lg md:text-xl font-semibold text-gray-700">
           Kamery
@@ -254,36 +254,39 @@ function CameraModelGrid({ cameraDataFile }) {
             data.data.map((modelName) => (
               <li
                 key={modelName}
-                className="flex flex-col md:flex-row md:flex-wrap md:space-x-2 justify-between items-center py-1"
+                className="flex flex-col md:flex-row md:flex-wrap md:space-x-2 justify-between items-center py-1 md:py-2"
               >
-                <span
-                  className={`block flex-grow text-left py-2 px-2 rounded-lg hover:bg-gray-400 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
-                    highlightedModels.has(modelName)
-                      ? 'bg-blue-100'
-                      : selectedModel === modelName && viewMode === 'grid'
-                      ? 'bg-orange'
-                      : ''
-                  }`}
-                  onClick={() => handleModelSelect(modelName)}
-                >
-                  {modelName}
-                </span>
-                <button
-                  onClick={() => handleVisualizationClick(modelName)}
-                  className={`w-full md:w-auto max-w-[150px] mt-2 md:mt-0 px-4 py-1 rounded-lg shadow-md transition-all duration-300 ${
-                    selectedModel === modelName && viewMode === 'visualization'
-                      ? 'bg-orange text-white'
-                      : 'bg-blue-600 text-white hover:bg-blue-700'
-                  }`}
-                >
-                  Vizualizácia
-                </button>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between w-full space-y-2 sm:space-y-0">
+                  <span
+                    className={`block flex-grow text-left py-2 px-2 rounded-lg hover:bg-gray-400 cursor-pointer focus:outline-none focus:ring-2 focus:ring-indigo-500 ${
+                      highlightedModels.has(modelName)
+                        ? 'bg-blue-100'
+                        : selectedModel === modelName && viewMode === 'grid'
+                        ? 'bg-orange'
+                        : ''
+                    }`}
+                    onClick={() => handleModelSelect(modelName)}
+                  >
+                    {modelName}
+                  </span>
+                  <button
+                    onClick={() => handleVisualizationClick(modelName)}
+                    className={`w-full sm:w-auto sm:ml-2 px-4 py-1 rounded-lg shadow-md transition-all duration-300 ${
+                      selectedModel === modelName &&
+                      viewMode === 'visualization'
+                        ? 'bg-orange text-white'
+                        : 'bg-blue-600 text-white hover:bg-blue-700'
+                    }`}
+                  >
+                    Vizualizácia
+                  </button>
+                </div>
               </li>
             ))}
         </ul>
       </div>
 
-      <div className="w-full md:flex-1 bg-white rounded-lg shadow-lg p-4 md:p-6">
+      <div className="w-full md:w-3/4  bg-white rounded-lg shadow-lg p-4 md:p-6">
         {viewMode === 'grid' && (
           <div className="relative mb-4">
             <input
@@ -314,7 +317,7 @@ function CameraModelGrid({ cameraDataFile }) {
             ''
           )
         ) : (
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto ">
             <DataGrid
               rows={formattedRows}
               columns={columns}
@@ -322,7 +325,6 @@ function CameraModelGrid({ cameraDataFile }) {
               rowsPerPageOptions={[5]}
               loading={isLoading}
               disableSelectionOnClick
-              columnAutoWidth
               disableExtendRowFullWidth
             />
           </div>
